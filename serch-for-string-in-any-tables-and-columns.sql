@@ -5,13 +5,14 @@ DECLARE
   v_owner VARCHAR2(255) :='SYS';
 
 -- Type the data type you are look at (in CAPITAL)
--- VARCHAR2, NUMBER, etc.
+-- NVARCHAR2, VARCHAR2, NUMBER, etc.
   v_data_type VARCHAR2(255) :='VARCHAR2';
 
 -- Type the string you are looking at
   v_search_string VARCHAR2(4000) :='string-to-be-searched';
-
+-- Please enable VIEW > Dbms output and attached it to current connection
 BEGIN
+dbms_output.put_line('Start search');
   FOR t IN (SELECT table_name, column_name FROM all_tab_cols where owner=v_owner and data_type = v_data_type) LOOP
 
     EXECUTE IMMEDIATE 
@@ -24,4 +25,6 @@ BEGIN
     END IF;
 
   END LOOP;
+  
+dbms_output.put_line('End search');
 END;
